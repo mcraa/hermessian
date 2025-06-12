@@ -40,11 +40,20 @@ const fetchLatestCount = async () => {
     var oldCount = await idb.get('count')
     if (oldCount && oldCount < parsed.count) {
       self.registration.showNotification(
-      `${parsed.count - oldCount} new notifications`,
-      { body: `${parsed.count} unread in total` }
-    ).catch((error) => {
-      console.log(error);
-    });
+        `${parsed.count - oldCount} new notifications`,
+        { body: `${parsed.count} unread in total` }
+      ).catch((error) => {
+        console.log(error);
+      });
+
+    }
+
+    if (self.navigator.setAppBadge && parsed.count > 0) {
+      self.navigator.setAppBadge(parsed.count)
+    }
+
+    if (parsed.count == 0 && self.navigator.clearAppBadge) {
+      self.navigator.clearAppBadge()
     }
 
     await idb.set('count', parsed.count)
