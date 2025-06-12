@@ -1,6 +1,7 @@
 {
   "short_name": "Hermessian",
-  "name": "Hermessian - Notifications from Atlassian products",
+  "name": "Hermessian",
+  "description": "Notifications from Atlassian products",
   "icons": [
     {
       "src": "assets/favicon-192.png",

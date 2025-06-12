@@ -4,12 +4,21 @@ async function registerPeriodicNewsCheck(registered) {
             name: 'periodic-background-sync',
         })
 
-        if (periodicPermission.state === 'granted') {
+        if (periodicPermission.state == 'granted') {
             // Periodic background sync can be used.
             try {
-                await registered.periodicSync.register("check-notifications-count", {
-                    minInterval: 60 * 1000,
-                });
+                
+                var existingTags = await registered.periodicSync.getTags()
+                console.log("Existing syncs: ", existingTags)
+
+                if (!existingTags || !existingTags.length) {
+                    var periodic = await registered.periodicSync.register("check-notifications-count", {
+                        minInterval: 6 * 1000,
+                    });
+    
+                    console.log("Registered periodic sync", periodic);
+                }               
+
             } catch (e) {
                 console.log("Periodic Sync could not be registered!", e);
             }
@@ -22,7 +31,6 @@ async function registerPeriodicNewsCheck(registered) {
         console.log("Can't query permisions", e)
     }    
 }
-
 
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", async () => {
