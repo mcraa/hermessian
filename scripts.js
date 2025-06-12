@@ -39,3 +39,7 @@ if ("serviceWorker" in navigator) {
         await registerPeriodicNewsCheck(registered)
     });
 }
+
+document.getElementById("allowButton").addEventListener("click", () => {
+  let promise = Notification.requestPermission();
+});

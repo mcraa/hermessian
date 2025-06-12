@@ -30,7 +30,7 @@ const fetchLatestCount = async () => {
     // TODO login?
     return;
   }
-  
+
   var parsed = await response.json();
   console.log(parsed)
 
@@ -39,7 +39,12 @@ const fetchLatestCount = async () => {
   } else {
     var oldCount = await idb.get('count')
     if (oldCount && oldCount < parsed.count) {
-      // TODO create notification
+      self.registration.showNotification(
+      `${parsed.count - oldCount} new notifications`,
+      { body: `${parsed.count} unread in total` }
+    ).catch((error) => {
+      console.log(error);
+    });
     }
 
     await idb.set('count', parsed.count)
