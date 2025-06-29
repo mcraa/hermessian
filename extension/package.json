@@ -1,0 +1,10 @@
+{
+  "name": "hermessian-chrome-extension",
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chrome-types": "^0.1.357"
+  }
+}
